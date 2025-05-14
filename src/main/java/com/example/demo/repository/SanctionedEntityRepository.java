@@ -1,33 +1,19 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.SanctionedEntity;
-import jakarta.transaction.Transactional;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import java.util.List;
-import java.util.Optional;
 
-@Repository
-@Transactional
-public interface SanctionedEntityRepository extends JpaRepository<SanctionedEntity, Long> {
+public interface SanctionedEntityRepository extends ElasticsearchRepository<SanctionedEntity, String>, SanctionedEntityCustomRepository  {
 
-    Optional<SanctionedEntity> findBySanctionedName(String sanctionedName);
 
-    // Exact match first
-    List<SanctionedEntity> findBySanctionedNameIgnoreCase(String sanctionedName);
 
-    // Partial match but sorted by name length (shorter names first)
-    @Query("SELECT e FROM SanctionedEntity e WHERE LOWER(e.sanctionedName) LIKE LOWER(CONCAT('%', :sanctionedName, '%')) ORDER BY LENGTH(e.sanctionedName)")
-    List<SanctionedEntity> findByNameSimilar(String sanctionedName);
+    List<SanctionedEntity> searchByName(String name);
 
-    boolean existsBySanctionedName(String sanctionedName);
+    //List<SanctionedEntity> findByNameContainingIgnoreCase(String name);
 
-    List<SanctionedEntity> findBySanctionCountryIgnoreCase(String sanctionCountry);
-
-    // Correct the method signature here
-    List<SanctionedEntity> findBySanctionTypeIgnoreCase(String sanctionType);
+   // List<SanctionedEntity> findByCountriesContainingIgnoreCase(String country);
 
 
 }
