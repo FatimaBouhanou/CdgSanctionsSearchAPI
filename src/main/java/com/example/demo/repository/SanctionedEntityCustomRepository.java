@@ -1,9 +1,9 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.SanctionedEntity;
+import com.example.demo.model.SanctionedEntityPWC;
 
 import java.util.List;
 
 public interface SanctionedEntityCustomRepository {
-    List<SanctionedEntity> searchByName(String name);
+    List<SanctionedEntityPWC> searchByName(String name);
 }

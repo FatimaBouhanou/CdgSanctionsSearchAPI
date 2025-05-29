@@ -12,7 +12,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(indexName = "data")
-public class SanctionedEntity {
+public class SanctionedEntityPWC {
 
     @Id
     private String id;

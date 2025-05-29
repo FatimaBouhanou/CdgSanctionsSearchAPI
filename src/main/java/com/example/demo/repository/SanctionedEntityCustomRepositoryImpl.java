@@ -1,6 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.SanctionedEntity;
+import com.example.demo.model.SanctionedEntityPWC;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.query.Criteria;
@@ -21,13 +21,15 @@ public class SanctionedEntityCustomRepositoryImpl implements SanctionedEntityCus
     }
 
     @Override
-    public List<SanctionedEntity> searchByName(String name) {
+    public List<SanctionedEntityPWC> searchByName(String name) {
         Criteria criteria = new Criteria("name").contains(name);
         Query query = new CriteriaQuery(criteria);
-        return elasticsearchOperations.search(query, SanctionedEntity.class)
+        return elasticsearchOperations.search(query, SanctionedEntityPWC.class)
                 .stream()
                 .map(SearchHit::getContent)
                 .toList();
     }
+
+
 }
 

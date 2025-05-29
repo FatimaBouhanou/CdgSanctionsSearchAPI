@@ -1,9 +1,9 @@
 package com.example.demo.extractors;
 
-import com.example.demo.model.SanctionedEntity;
+import com.example.demo.model.SanctionedEntityPWC;
 
 import java.util.List;
 
 public interface DataExtractor {
-    List<SanctionedEntity> extractData(String source) throws Exception;  // Add `throws Exception`
+    List<SanctionedEntityPWC> extractData(String source) throws Exception;  // Add `throws Exception`
 }
