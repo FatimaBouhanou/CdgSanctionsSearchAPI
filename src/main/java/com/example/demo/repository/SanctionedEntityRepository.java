@@ -19,7 +19,7 @@ public interface SanctionedEntityRepository extends ElasticsearchRepository<Sanc
             "{\"wildcard\": {\"name\": {\"value\": \"*?0*\"}}}," +
             "{\"wildcard\": {\"aliases\": {\"value\": \"*?0*\"}}}" +
             "]}}")
-    List<SanctionedEntityPWC> searchByName(String nameQuery);
+    List<SanctionedEntityPWC> searchByNameUsingCriteria(String nameQuery);
 
     // Paginated version of search
     @Query("{\"bool\": {\"should\": [" +
