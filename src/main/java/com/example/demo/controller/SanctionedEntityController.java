@@ -36,10 +36,12 @@ public class SanctionedEntityController {
     @GetMapping("/search")
     public ResponseEntity<?> searchPWC(
             @RequestParam String name,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String birth_date,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         try {
-            var result = service.searchPWCByName(name, page, size);
+            var result = service.searchPWCByName(name, type, birth_date, page, size);
             return ResponseEntity.ok(Map.of(
                     "content", result.getContent(),
                     "totalPages", result.getTotalPages(),
@@ -51,6 +53,7 @@ public class SanctionedEntityController {
                     .body(Map.of("error", "Search PWC failed", "message", e.getMessage()));
         }
     }
+
 
     // S (Securities)
     @GetMapping("/securities/list")

@@ -4,6 +4,7 @@ import co.elastic.clients.elasticsearch._types.query_dsl.MatchAllQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import com.example.demo.model.SanctionedEntityPWC;
 import com.example.demo.model.SanctionedEntityS;
+import com.example.demo.model.ScoredEntity;
 import com.example.demo.repository.SanctionedEntityCustomRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,10 +33,11 @@ public class SanctionedEntityService {
         this.operations = operations;
     }
 
-    public Page<SanctionedEntityPWC> searchPWCByName(String name, int page, int size) {
+    public Page<SanctionedEntityPWC> searchPWCByName(String name, String type, String birth_date, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return customRepository.searchByName(name, pageable);
+        return customRepository.searchByName(name, type, birth_date, pageable);
     }
+
 
     public Page<SanctionedEntityS> searchSByName(String name, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -71,4 +73,19 @@ public class SanctionedEntityService {
                 .map(SearchHit::getContent)
                 .collect(Collectors.toList());
     }
+
+    //new stuff
+
+    // New method returning entities with scores
+    public Page<ScoredEntity<SanctionedEntityPWC>> searchPWCByNameWithScore(String name, String type, String birth_date, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return customRepository.searchByNameWithScore(name, type, birth_date, pageable);
+    }
+
+    // New method returning entities with scores
+    public Page<ScoredEntity<SanctionedEntityS>> searchSByNameWithScore(String name, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return customRepository.searchByNameSWithScore(name, pageable);
+    }
+
 }
